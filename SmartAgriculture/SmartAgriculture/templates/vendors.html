@@ -1,0 +1,32 @@
+{% extends 'base.html' %}{% block content %}
+<section class="page-head">
+  <div class="container">
+    <h2>Nearby farm vendors</h2>
+    <p>Browse seed, fertilizer, pesticide and farm supply stores.</p>
+  </div>
+</section>
+<div class="container py-4">
+  <div class="row g-4">
+    <div class="col-lg-7"><div id="vendorMap"></div></div>
+    <div class="col-lg-5">
+      <input
+        id="vendorSearch"
+        class="form-control mb-3"
+        placeholder="Search vendor or category"
+      />
+      <div id="vendorList">
+        {% for v in vendors %}
+        <article class="vendor" data-search="{{v[0]|lower}} {{v[1]|lower}}">
+          <b>{{v[0]}}</b><span class="badge text-bg-success">{{v[1]}}</span>
+          <p>{{v[2]}}<br />{{v[3]}}</p>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}{% block scripts %}
+<script>
+  window.VENDORS={{vendors|tojson}};initVendorMap()
+</script>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}{% block content %}
+<section class="page-head">
+  <div class="container">
+    <h2>Soil recommendation</h2>
+    <p>
+      Use your soil-test and local climate readings for a transparent crop
+      suggestion.
+    </p>
+  </div>
+</section>
+<div class="container py-4">
+  <div class="row g-4">
+    <div class="col-lg-7">
+      <form method="post" class="glass p-4">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <div class="row g-3">
+          {% for key,label,step in [('nitrogen','Nitrogen
+          (N)','0.1'),('phosphorus','Phosphorus
+          (P)','0.1'),('potassium','Potassium
+          (K)','0.1'),('temperature','Temperature
+          °C','0.1'),('humidity','Humidity %','0.1'),('ph','Soil
+          pH','0.1'),('rainfall','Rainfall mm','0.1')] %}
+          <div class="col-md-6">
+            <label class="form-label">{{label}}</label
+            ><input
+              class="form-control"
+              type="number"
+              step="{{step}}"
+              name="{{key}}"
+              required
+            />
+          </div>
+          {% endfor %}
+        </div>
+        <button class="btn btn-primary mt-4">Get recommendation</button>
+      </form>
+    </div>
+    {% if result %}
+    <div class="col-lg-5">
+      <div class="result-card">
+        <span class="eyebrow">RECOMMENDED CROP</span>
+        <h2>{{result.crop}}</h2>
+        <p><b>Fertilizer:</b> {{result.fertilizer}}</p>
+        <div class="confidence">
+          <span style="width:{{result.confidence}}%"></span>
+        </div>
+        <small>{{result.confidence}}% confidence</small>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

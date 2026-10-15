@@ -1,0 +1,16 @@
+{% extends 'base.html' %}{% block content %}
+<div class="auth-page">
+  <div class="glass auth-card">
+    <h2>Recover access</h2>
+    <form method="post">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" /><input
+        class="form-control"
+        type="email"
+        name="email"
+        placeholder="Your account email"
+        required
+      /><button class="btn btn-primary w-100">Request reset</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

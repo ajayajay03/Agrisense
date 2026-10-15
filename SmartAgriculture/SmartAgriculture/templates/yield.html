@@ -1,0 +1,80 @@
+{% extends 'base.html' %}{% block content %}
+<section class="page-head">
+  <div class="container">
+    <h2>Crop yield prediction</h2>
+    <p>Estimate output in tonnes using crop, climate, soil and farm area.</p>
+  </div>
+</section>
+<div class="container py-4">
+  <div class="row g-4">
+    <div class="col-lg-7">
+      <form method="post" class="glass p-4">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label>Crop</label
+            ><select name="crop" class="form-select">
+              {% for x in ['Rice','Wheat','Maize','Cotton','Sugarcane'] %}
+              <option>{{x}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label>Soil type</label
+            ><select name="soil_type" class="form-select">
+              {% for x in ['Loamy','Clay','Sandy','Silty'] %}
+              <option>{{x}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label>Area (hectares)</label
+            ><input
+              class="form-control"
+              name="area"
+              type="number"
+              step=".01"
+              min=".01"
+              required
+            />
+          </div>
+          <div class="col-md-4">
+            <label>Rainfall (mm)</label
+            ><input
+              class="form-control"
+              name="rainfall"
+              type="number"
+              step=".1"
+              required
+            />
+          </div>
+          <div class="col-md-4">
+            <label>Temperature °C</label
+            ><input
+              class="form-control"
+              name="temperature"
+              type="number"
+              step=".1"
+              required
+            />
+          </div>
+        </div>
+        <button class="btn btn-primary mt-4">Predict yield</button>
+      </form>
+    </div>
+    {% if result %}
+    <div class="col-lg-5">
+      <div class="result-card">
+        <span class="eyebrow">EXPECTED OUTPUT</span>
+        <h2>{{result}} tonnes</h2>
+        <canvas id="yieldChart"></canvas>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}{% block scripts %}{% if result %}
+<script>
+  new Chart(document.getElementById('yieldChart'),{type:'bar',data:{labels:['Expected yield'],datasets:[{label:'Tonnes',data:[{{result}}],backgroundColor:'#4b9560'}]}})
+</script>
+{% endif %}{% endblock %}

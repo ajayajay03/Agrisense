@@ -1,0 +1,70 @@
+{% extends 'base.html' %}{% block content %}
+<section class="page-head">
+  <div class="container">
+    <h2>Your farm history</h2>
+    <p>Previous yield estimates and leaf screening results.</p>
+  </div>
+</section>
+<div class="container py-4">
+  <div class="row g-4">
+    <div class="col-lg-6">
+      <div class="glass p-4">
+        <h4>Yield predictions</h4>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Crop</th>
+                <th>Yield</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for p in predictions %}
+              <tr>
+                <td>{{p[0]}}</td>
+                <td>{{p[1]}} t</td>
+                <td>{{p[2].strftime('%d %b %Y')}}</td>
+              </tr>
+              {% else %}
+              <tr>
+                <td colspan="3">No predictions yet.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="glass p-4">
+        <h4>Disease checks</h4>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Result</th>
+                <th>Confidence</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for d in diseases %}
+              <tr>
+                <td>{{d[0]}}</td>
+                <td>{{d[1]}}%</td>
+                <td>{{d[2].strftime('%d %b %Y')}}</td>
+              </tr>
+              {% else %}
+              <tr>
+                <td colspan="3">No leaf scans yet.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

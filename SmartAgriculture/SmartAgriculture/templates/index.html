@@ -1,0 +1,52 @@
+{% extends 'base.html' %}{% block content %}
+<section class="hero">
+  <div class="container py-5">
+    <div class="row align-items-center min-vh-75">
+      <div class="col-lg-7">
+        <span class="eyebrow">DATA-DRIVEN FARMING</span>
+        <h1>Grow with confidence.<br /><em>Harvest more.</em></h1>
+        <p class="lead">
+          Weather intelligence, soil recommendations, disease screening, and
+          practical AI support—built for modern farmers.
+        </p>
+        <a href="{{url_for('auth.register')}}" class="btn btn-primary btn-lg"
+          >Start growing smarter <i class="fa-solid fa-arrow-right"></i
+        ></a>
+      </div>
+      <div class="col-lg-5">
+        <div class="glass hero-card">
+          <i class="fa-solid fa-seedling display-1"></i>
+          <h3>One platform. Every growing decision.</h3>
+          <div class="row text-center">
+            <div class="col">Weather<br /><b>Live</b></div>
+            <div class="col">Soil<br /><b>Smart</b></div>
+            <div class="col">Crop care<br /><b>AI</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="container py-5">
+  <div class="text-center mb-4">
+    <span class="eyebrow">HOW WE HELP</span>
+    <h2>Tools for resilient farms</h2>
+  </div>
+  <div class="row g-4">
+    {% for icon,title,text in [('cloud-sun-rain','Weather intelligence','Plan
+    fieldwork around precise five-day forecasts.'),('flask','Soil
+    guidance','Turn NPK, pH, and climate readings into crop
+    choices.'),('microscope','Disease screening','Get a rapid leaf-health
+    assessment and safe next actions.'),('comments','Farm assistant','Ask
+    focused agriculture questions in everyday language.')] %}
+    <div class="col-md-6 col-lg-3">
+      <article class="feature-card">
+        <i class="fa-solid fa-{{icon}}"></i>
+        <h5>{{title}}</h5>
+        <p>{{text}}</p>
+      </article>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}{% block title %}Dashboard · AgriSense{% endblock %}{%
+block content %}
+<section class="page-head">
+  <div class="container">
+    <span class="eyebrow">FARM WORKSPACE</span>
+    <h2>
+      Hello, {{session.user_name}} <i class="fa-solid fa-hand-sparkles"></i>
+    </h2>
+    <p>Make today’s farm decisions with a clearer picture.</p>
+  </div>
+</section>
+<section class="container py-4">
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="glass p-4">
+        <h4><i class="fa-solid fa-cloud-sun"></i> Local weather</h4>
+        <div id="weather" class="row">
+          <div class="col text-muted">Loading current conditions…</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="glass p-4 chatbot">
+        <h4><i class="fa-solid fa-robot"></i> Farm assistant</h4>
+        <div id="chatMessages">
+          <p class="bot">Ask about crops, soil, irrigation, or pests.</p>
+        </div>
+        <form id="chatForm">
+          <input
+            id="chatQuestion"
+            class="form-control"
+            placeholder="Ask a farm question…"
+            required
+          /><button class="btn btn-primary mt-2 w-100">Ask assistant</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <h4 class="mt-5">Explore your tools</h4>
+  <div class="row g-3">
+    {% for endpoint,icon,title,text in [('main.soil','flask','Soil
+    recommendation','Choose a crop and fertilizer
+    plan.'),('main.yield_page','chart-line','Yield prediction','Estimate
+    expected farm output.'),('main.disease','camera','Disease detection','Screen
+    a plant-leaf photo.'),('main.vendors','map-location-dot','Nearby
+    vendors','Find local farm
+    supplies.'),('main.history','clock-rotate-left','History','Review prior
+    assessments.'),('main.feedback','star','Feedback','Help us improve
+    AgriSense.')] %}
+    <div class="col-md-4">
+      <a class="tool-card" href="{{url_for(endpoint)}}"
+        ><i class="fa-solid fa-{{icon}}"></i>
+        <h5>{{title}}</h5>
+        <p>{{text}}</p></a
+      >
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

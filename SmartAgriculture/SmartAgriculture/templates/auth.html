@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="auth-page">
+  <div class="glass auth-card">
+    <h2>
+      {{ 'Create your account' if mode == 'register' else 'Welcome back' }}
+    </h2>
+
+    <p class="text-muted">
+      {{ 'Begin your smarter farming journey.' if mode == 'register'
+         else 'Sign in to your farm workspace.' }}
+    </p>
+
+    <form method="post">
+      <input
+        type="hidden"
+        name="csrf_token"
+        value="{{ csrf_token() }}"
+      >
+
+      {% if mode == 'register' %}
+      <input
+        class="form-control"
+        name="name"
+        placeholder="Full name"
+        required
+      >
+
+      <input
+        class="form-control"
+        name="location"
+        placeholder="Farm location (optional)"
+      >
+      {% endif %}
+
+      <input
+        class="form-control"
+        type="email"
+        name="email"
+        placeholder="Email address"
+        required
+      >
+
+      <input
+        class="form-control"
+        type="password"
+        name="password"
+        placeholder="Password"
+        required
+        minlength="8"
+      >
+
+      <button class="btn btn-primary w-100" type="submit">
+        {{ 'Register' if mode == 'register' else 'Sign in' }}
+      </button>
+    </form>
+
+    {% if mode == 'login' %}
+    <a href="{{ url_for('auth.forgot') }}">Forgot password?</a>
+
+    <p>
+      New here?
+      <a href="{{ url_for('auth.register') }}">Create an account</a>
+    </p>
+    {% else %}
+    <p>
+      Already registered?
+      <a href="{{ url_for('auth.login') }}">Sign in</a>
+    </p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

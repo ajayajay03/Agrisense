@@ -1,0 +1,44 @@
+{% extends 'base.html' %}{% block content %}
+<section class="page-head">
+  <div class="container">
+    <h2>Plant disease detection</h2>
+    <p>Upload a well-lit close-up of a single leaf for a screening result.</p>
+  </div>
+</section>
+<div class="container py-4">
+  <div class="row g-4">
+    <div class="col-lg-6">
+      <form method="post" enctype="multipart/form-data" class="glass p-4">
+        <input
+          type="hidden"
+          name="csrf_token"
+          value="{{ csrf_token() }}"
+        /><label class="upload-zone"
+          ><i class="fa-solid fa-cloud-arrow-up"></i
+          ><strong>Choose leaf image</strong
+          ><span>PNG, JPG or JPEG · max 8 MB</span
+          ><input
+            name="image"
+            type="file"
+            accept="image/png,image/jpeg"
+            required /></label
+        ><button class="btn btn-primary mt-3">Analyze leaf</button>
+      </form>
+    </div>
+    {% if result %}
+    <div class="col-lg-6">
+      <div class="result-card">
+        <span
+          class="badge {{'text-bg-success' if result.healthy else 'text-bg-warning'}}"
+          >{{'HEALTHY' if result.healthy else 'ATTENTION NEEDED'}}</span
+        >
+        <h3 class="mt-3">{{result.name}}</h3>
+        <p><b>Confidence:</b> {{result.confidence}}%</p>
+        <p><b>Treatment:</b> {{result.treatment}}</p>
+        <p><b>Precautions:</b> {{result.precautions}}</p>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
